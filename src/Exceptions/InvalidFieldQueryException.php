@@ -4,6 +4,9 @@ namespace Inovanti\AdvancedQueryFilters\Exceptions;
 
 use Illuminate\Support\Collection;
 
+/**
+ * @method __construct(Collection $unknownFields, Collection $allowedFields)
+ */
 class InvalidFieldQueryException extends InvalidQueryException
 {
     public function __construct(Collection $unknownFields, Collection $allowedFields)

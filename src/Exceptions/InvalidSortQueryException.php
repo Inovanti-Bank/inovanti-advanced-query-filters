@@ -4,6 +4,9 @@ namespace Inovanti\AdvancedQueryFilters\Exceptions;
 
 use Illuminate\Support\Collection;
 
+/**
+ * @method __construct(Collection $unknownSorts, Collection $allowedSorts)
+ */
 class InvalidSortQueryException extends InvalidQueryException
 {
     public function __construct(Collection $unknownSorts, Collection $allowedSorts)

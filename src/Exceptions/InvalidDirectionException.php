@@ -2,7 +2,7 @@
 
 namespace Inovanti\AdvancedQueryFilters\Exceptions;
 
-use App\Enums\SortDirection;
+use Inovanti\AdvancedQueryFilters\Enums\SortDirection;
 
 class InvalidDirectionException extends InvalidQueryException
 {

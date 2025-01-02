@@ -4,6 +4,9 @@ namespace Inovanti\AdvancedQueryFilters\Exceptions;
 
 use BadMethodCallException as BaseException;
 
+/**
+ * @method __construct(string $methodName, string $className)
+ */
 class BadMethodCallException extends BaseException
 {
     public function __construct(string $methodName, string $className)
