@@ -3,6 +3,7 @@
 namespace Inovanti\AdvancedQueryFilters\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Inovanti\AdvancedQueryFilters\Services\FilterService;
 
 class FilterServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,9 @@ class FilterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Registrar os serviços e bindings
+        $this->app->singleton('filter-service', function ($app) {
+            return new FilterService();
+        });
     }
 
     /**
@@ -23,6 +26,8 @@ class FilterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Configurações de boot
+        $this->publishes([
+            __DIR__ . '/../config/advanced-query-filters.php' => config_path('advanced-query-filters.php'),
+        ], 'config');
     }
 }
