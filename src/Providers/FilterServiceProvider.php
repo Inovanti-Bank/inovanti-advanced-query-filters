@@ -14,7 +14,7 @@ class FilterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('filter-service', function ($app) {
+        $this->app->singleton('filterservice', function ($app) {
             return new FilterService;
         });
     }
