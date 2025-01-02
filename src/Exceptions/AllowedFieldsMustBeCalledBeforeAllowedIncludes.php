@@ -1,6 +1,6 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Exceptions;
+namespace InovantiBank\AdvancedQueryFilters\Exceptions;
 
 class AllowedFieldsMustBeCalledBeforeAllowedIncludes extends InvalidQueryException
 {

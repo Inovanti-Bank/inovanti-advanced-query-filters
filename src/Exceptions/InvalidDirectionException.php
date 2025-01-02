@@ -1,8 +1,8 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Exceptions;
+namespace InovantiBank\AdvancedQueryFilters\Exceptions;
 
-use Inovanti\AdvancedQueryFilters\Enums\SortDirection;
+use InovantiBank\AdvancedQueryFilters\Enums\SortDirection;
 
 class InvalidDirectionException extends InvalidQueryException
 {

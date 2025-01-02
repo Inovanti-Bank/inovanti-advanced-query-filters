@@ -1,8 +1,8 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Enums;
+namespace InovantiBank\AdvancedQueryFilters\Enums;
 
-enum SortDirection: string
+enum SortDirectionEnum: string
 {
     case ASCENDING = 'asc';
     case DESCENDING = 'desc';

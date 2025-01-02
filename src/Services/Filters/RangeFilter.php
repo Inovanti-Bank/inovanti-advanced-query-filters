@@ -5,7 +5,7 @@ namespace InovantiBank\AdvancedQueryFilters\Services\Filters;
 use InovantiBank\AdvancedQueryFilters\Services\Interfaces\FilterInterface;
 use InovantiBank\AdvancedQueryFilters\Enums\FilterOperatorEnum;
 
-class NumericFilter implements FilterInterface
+class RangeFilter implements FilterInterface
 {
     public function apply($query, $value)
     {
@@ -13,11 +13,10 @@ class NumericFilter implements FilterInterface
 
         return match($operator)
         {
-            FilterOperatorEnum::EQUAL => $query->where('field', '=', $value['number']),
-            FilterOperatorEnum::GREATER_THAN => $query->where('field', '>', $value['number']),
-            FilterOperatorEnum::LESS_THAN => $query->where('field', '<', $value['number']),
             FilterOperatorEnum::BETWEEN => $query->whereBetween('field', [$value['min'], $value['max']]),
-            default => throw new \InvalidArgumentException("Invalid operator for NumericFilter")
+            FilterOperatorEnum::GREATER_THAN_OR_EQUAL => $query->where('field', '>=', $value['min']),
+            FilterOperatorEnum::LESS_THAN_OR_EQUAL => $query->where('field', '<=', $value['max']),
+            default => throw new \InvalidArgumentException("Invalid operator for RangeFilter")
         };
     }
 }

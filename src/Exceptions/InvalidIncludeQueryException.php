@@ -1,8 +1,8 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Exceptions;
+namespace InovantiBank\AdvancedQueryFilters\Exceptions;
 
-use Inovanti\AdvancedQueryFilters\Exceptions\InvalidQueryException;
+use InovantiBank\AdvancedQueryFilters\Exceptions\InvalidQueryException;
 
 class InvalidIncludeQueryException extends InvalidQueryException
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Providers;
+namespace InovantiBank\AdvancedQueryFilters\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Inovanti\AdvancedQueryFilters\Services\FilterService;
+use InovantiBank\AdvancedQueryFilters\Services\FilterService;
 
 class FilterServiceProvider extends ServiceProvider
 {

@@ -1,29 +1,29 @@
 <?php
 
-use Inovanti\AdvancedQueryFilters\Enums\FilterOperator;
-use Inovanti\AdvancedQueryFilters\Enums\SortDirection;
+use InovantiBank\AdvancedQueryFilters\Enums\FilterOperator;
+use InovantiBank\AdvancedQueryFilters\Enums\SortDirection;
 
 return [
-    'default_filter' => FilterOperator::EQUAL->value,
+    'default_filter' => FilterOperatorEnum::EQUAL->value,
     'supported_filters' => [
         'string' => [
-            FilterOperator::EQUAL->value,
-            FilterOperator::LIKE->value,
-            FilterOperator::NOT_LIKE->value,
+            FilterOperatorEnum::EQUAL->value,
+            FilterOperatorEnum::LIKE->value,
+            FilterOperatorEnum::NOT_LIKE->value,
         ],
         'numeric' => [
-            FilterOperator::EQUAL->value,
-            FilterOperator::GREATER_THAN->value,
-            FilterOperator::LESS_THAN->value,
-            FilterOperator::GREATER_THAN_OR_EQUAL->value,
-            FilterOperator::LESS_THAN_OR_EQUAL->value,
-            FilterOperator::NOT_EQUAL->value,
-            FilterOperator::BETWEEN->value,
+            FilterOperatorEnum::EQUAL->value,
+            FilterOperatorEnum::GREATER_THAN->value,
+            FilterOperatorEnum::LESS_THAN->value,
+            FilterOperatorEnum::GREATER_THAN_OR_EQUAL->value,
+            FilterOperatorEnum::LESS_THAN_OR_EQUAL->value,
+            FilterOperatorEnum::NOT_EQUAL->value,
+            FilterOperatorEnum::BETWEEN->value,
         ],
         'date' => [
-            FilterOperator::LESS_THAN->value,
-            FilterOperator::GREATER_THAN->value,
-            FilterOperator::BETWEEN->value,
+            FilterOperatorEnum::LESS_THAN->value,
+            FilterOperatorEnum::GREATER_THAN->value,
+            FilterOperatorEnum::BETWEEN->value,
         ],
     ],
     'default_sort_direction' => SortDirection::ASCENDING->value,

@@ -1,8 +1,8 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Enums;
+namespace InovantiBank\AdvancedQueryFilters\Enums;
 
-enum FilterOperator: string
+enum FilterOperatorEnum: string
 {
     case DYNAMIC = '';
     case EQUAL = '=';

@@ -1,6 +1,6 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Exceptions;
+namespace InovantiBank\AdvancedQueryFilters\Exceptions;
 
 use BadMethodCallException as BaseException;
 

@@ -1,13 +1,23 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Services\Filters;
+namespace InovantiBank\AdvancedQueryFilters\Services\Filters;
 
-use Inovanti\AdvancedQueryFilters\Services\Interfaces\FilterInterface;
+use InovantiBank\AdvancedQueryFilters\Services\Interfaces\FilterInterface;
+use InovantiBank\AdvancedQueryFilters\Enums\FilterOperator;
+use InovantiBank\AdvancedQueryFilters\Enums\FilterOperatorEnum;
 
 class StringFilter implements FilterInterface
 {
     public function apply($query, $value)
     {
-        // Implementação do filtro
+        $operator = FilterOperatorEnum::from($value['operator']);
+
+        return match($operator)
+        {
+            FilterOperatorEnum::EQUAL => $query->where('field', '=', $value['string']),
+            FilterOperatorEnum::LIKE => $query->where('field', 'like', '%' . $value['string'] . '%'),
+            FilterOperatorEnum::NOT_LIKE => $query->where('field', 'not like', '%' . $value['string'] . '%'),
+            default => throw new \InvalidArgumentException("Invalid operator for StringFilter")
+        };
     }
 }

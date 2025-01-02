@@ -1,6 +1,6 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Services\Interfaces; 
+namespace InovantiBank\AdvancedQueryFilters\Services\Interfaces;
 
 interface FilterInterface 
 { 

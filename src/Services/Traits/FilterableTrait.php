@@ -1,6 +1,6 @@
 <?php
 
-namespace Inovanti\AdvancedQueryFilters\Services\Traits;
+namespace InovantiBank\AdvancedQueryFilters\Services\Traits;
 
 trait FilterableTrait
 {
