@@ -72,4 +72,9 @@ class FilterService
     {
         return $this->filters;
     }
+
+    public function getFilterOperatorsTranslations(?array $operators = null): array
+    {
+        return FilterOperatorEnum::getTranslations($operators);
+    }
 }
