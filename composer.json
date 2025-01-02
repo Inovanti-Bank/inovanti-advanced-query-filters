@@ -1,0 +1,25 @@
+{
+    "name": "inovanti-bank/inovanti-advanced-query-filters",
+    "description": "Componente de filtros avançados para Laravel",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Inovanti\\AdvancedQueryFilters\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Inovanti\\AdvancedQueryFilters\\Providers\\FilterServiceProvider"
+            ]
+        }
+    }
+}
