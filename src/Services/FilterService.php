@@ -2,10 +2,11 @@
 
 namespace InovantiBank\AdvancedQueryFilters\Services;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use InovantiBank\AdvancedQueryFilters\Exceptions\InvalidFilterQueryException;
+use Illuminate\Database\Eloquent\Builder;
+use InovantiBank\AdvancedQueryFilters\Enums\FilterOperatorEnum;
 use InovantiBank\AdvancedQueryFilters\Services\Interfaces\FilterInterface;
+use InovantiBank\AdvancedQueryFilters\Exceptions\InvalidFilterQueryException;
 
 class FilterService
 {
