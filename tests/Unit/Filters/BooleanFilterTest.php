@@ -2,22 +2,22 @@
 
 namespace Tests\Unit\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
+use InovantiBank\AdvancedQueryFilters\Services\Filters\BooleanFilter;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use InovantiBank\AdvancedQueryFilters\Services\Filters\BooleanFilter;
-use Illuminate\Database\Eloquent\Builder;
 
 class BooleanFilterTest extends TestCase
 {
-    public function testApplyEquals()
+    public function test_apply_equals()
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-              ->with('field', true)
-              ->once()
-              ->andReturnSelf();
+            ->with('field', true)
+            ->once()
+            ->andReturnSelf();
 
-        $filter = new BooleanFilter();
+        $filter = new BooleanFilter;
         $value = ['operator' => '=', 'boolean' => true];
         $result = $filter->apply($query, $value);
 

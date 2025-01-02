@@ -41,7 +41,7 @@ enum FilterOperatorEnum: string
     /**
      * Retorna a lista de traduções para os operadores disponíveis.
      */
-    public static function getTranslations(array $operators = null): array
+    public static function getTranslations(?array $operators = null): array
     {
         $operatorsToTranslate = $operators ?? self::cases();
 

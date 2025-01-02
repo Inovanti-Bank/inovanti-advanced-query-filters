@@ -2,7 +2,7 @@
 
 namespace InovantiBank\AdvancedQueryFilters\Services\Interfaces;
 
-interface FilterInterface 
-{ 
+interface FilterInterface
+{
     public function apply($query, $value);
 }

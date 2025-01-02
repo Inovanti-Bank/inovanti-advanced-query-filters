@@ -7,8 +7,8 @@ trait SortableTrait
     /**
      * Apply sorting to the query based on the sort parameters.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param array|string $sort
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  array|string  $sort
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeSort($query, $sort)

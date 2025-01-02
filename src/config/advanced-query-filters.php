@@ -1,6 +1,5 @@
 <?php
 
-use InovantiBank\AdvancedQueryFilters\Enums\FilterOperator;
 use InovantiBank\AdvancedQueryFilters\Enums\SortDirection;
 
 return [

@@ -15,7 +15,7 @@ class FilterServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('filter-service', function ($app) {
-            return new FilterService();
+            return new FilterService;
         });
     }
 
@@ -27,7 +27,7 @@ class FilterServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/advanced-query-filters.php' => config_path('advanced-query-filters.php'),
+            __DIR__.'/../config/advanced-query-filters.php' => config_path('advanced-query-filters.php'),
         ], 'config');
     }
 }

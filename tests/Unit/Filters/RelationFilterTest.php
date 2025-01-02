@@ -2,31 +2,32 @@
 
 namespace Tests\Unit\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
+use InovantiBank\AdvancedQueryFilters\Services\Filters\RelationFilter;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use InovantiBank\AdvancedQueryFilters\Services\Filters\RelationFilter;
-use Illuminate\Database\Eloquent\Builder;
 
 class RelationFilterTest extends TestCase
 {
-    public function testApplyEqual()
+    public function test_apply_equal()
     {
         $query = Mockery::mock(Builder::class);
 
         $query->shouldReceive('whereHas')
-              ->with('relation', Mockery::on(function ($callback) {
-                  $relatedQuery = Mockery::mock(Builder::class);
-                  $relatedQuery->shouldReceive('where')
-                               ->with('related_field', '=', 'value')
-                               ->once()
-                               ->andReturnSelf();
-                  $callback($relatedQuery);
-                  return true;
-              }))
-              ->once()
-              ->andReturnSelf();
+            ->with('relation', Mockery::on(function ($callback) {
+                $relatedQuery = Mockery::mock(Builder::class);
+                $relatedQuery->shouldReceive('where')
+                    ->with('related_field', '=', 'value')
+                    ->once()
+                    ->andReturnSelf();
+                $callback($relatedQuery);
 
-        $filter = new RelationFilter();
+                return true;
+            }))
+            ->once()
+            ->andReturnSelf();
+
+        $filter = new RelationFilter;
         $value = ['operator' => '=', 'value' => 'value'];
         $result = $filter->apply($query, $value);
 

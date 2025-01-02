@@ -14,6 +14,7 @@ class InvalidDirectionException extends InvalidQueryException
             SortDirection::DESCENDING->value,
             $direction
         );
+
         return new self($message);
     }
 }

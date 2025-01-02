@@ -2,37 +2,37 @@
 
 namespace Tests\Unit\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
+use InovantiBank\AdvancedQueryFilters\Services\Filters\NullFilter;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use InovantiBank\AdvancedQueryFilters\Services\Filters\NullFilter;
-use Illuminate\Database\Eloquent\Builder;
 
 class NullFilterTest extends TestCase
 {
-    public function testApplyNull()
+    public function test_apply_null()
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('whereNull')
-              ->with('field')
-              ->once()
-              ->andReturnSelf();
+            ->with('field')
+            ->once()
+            ->andReturnSelf();
 
-        $filter = new NullFilter();
+        $filter = new NullFilter;
         $value = ['operator' => '=', 'boolean' => true];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
     }
 
-    public function testApplyNotNull()
+    public function test_apply_not_null()
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('whereNotNull')
-              ->with('field')
-              ->once()
-              ->andReturnSelf();
+            ->with('field')
+            ->once()
+            ->andReturnSelf();
 
-        $filter = new NullFilter();
+        $filter = new NullFilter;
         $value = ['operator' => '=', 'boolean' => false];
         $result = $filter->apply($query, $value);
 

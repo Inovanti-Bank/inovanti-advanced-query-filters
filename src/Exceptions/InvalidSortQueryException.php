@@ -12,7 +12,7 @@ class InvalidSortQueryException extends InvalidQueryException
     public function __construct(Collection $unknownSorts, Collection $allowedSorts)
     {
         $message = sprintf(
-            "Requested sort(s) [%s] is not allowed. Allowed sort(s) are [%s].",
+            'Requested sort(s) [%s] is not allowed. Allowed sort(s) are [%s].',
             $unknownSorts->implode(', '),
             $allowedSorts->implode(', ')
         );

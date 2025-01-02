@@ -12,7 +12,7 @@ class InvalidFieldQueryException extends InvalidQueryException
     public function __construct(Collection $unknownFields, Collection $allowedFields)
     {
         $message = sprintf(
-            "Requested field(s) [%s] are not allowed. Allowed field(s) are [%s].",
+            'Requested field(s) [%s] are not allowed. Allowed field(s) are [%s].',
             $unknownFields->implode(', '),
             $allowedFields->implode(', ')
         );

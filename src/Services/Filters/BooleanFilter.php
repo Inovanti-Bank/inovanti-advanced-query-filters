@@ -2,8 +2,8 @@
 
 namespace InovantiBank\AdvancedQueryFilters\Services\Filters;
 
-use InovantiBank\AdvancedQueryFilters\Services\Interfaces\FilterInterface;
 use InovantiBank\AdvancedQueryFilters\Enums\FilterOperatorEnum;
+use InovantiBank\AdvancedQueryFilters\Services\Interfaces\FilterInterface;
 
 class BooleanFilter implements FilterInterface
 {
@@ -11,10 +11,9 @@ class BooleanFilter implements FilterInterface
     {
         $operator = FilterOperatorEnum::from($value['operator']);
 
-        return match($operator)
-        {
+        return match ($operator) {
             FilterOperatorEnum::EQUAL => $query->where('field', (bool) $value['boolean']),
-            default => throw new \InvalidArgumentException("Invalid operator for BooleanFilter")
+            default => throw new \InvalidArgumentException('Invalid operator for BooleanFilter')
         };
     }
 }

@@ -2,23 +2,23 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Database\Eloquent\Builder;
+use InovantiBank\AdvancedQueryFilters\Exceptions\InvalidFilterQueryException;
+use InovantiBank\AdvancedQueryFilters\Services\Filters\NumericFilter;
+use InovantiBank\AdvancedQueryFilters\Services\Filters\StringFilter;
+use InovantiBank\AdvancedQueryFilters\Services\FilterService;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Database\Eloquent\Builder;
-use InovantiBank\AdvancedQueryFilters\Services\FilterService;
-use InovantiBank\AdvancedQueryFilters\Services\Filters\StringFilter;
-use InovantiBank\AdvancedQueryFilters\Services\Filters\NumericFilter;
-use InovantiBank\AdvancedQueryFilters\Exceptions\InvalidFilterQueryException;
 
 class FilterServiceTest extends TestCase
 {
-    public function testApplyFilters()
+    public function test_apply_filters()
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-              ->with('field', 'like', '%John%')
-              ->once()
-              ->andReturnSelf();
+            ->with('field', 'like', '%John%')
+            ->once()
+            ->andReturnSelf();
 
         $filterService = new FilterService([
             'name' => StringFilter::class,
@@ -37,7 +37,7 @@ class FilterServiceTest extends TestCase
         $this->assertEquals(['operator' => 'like', 'string' => 'John'], $appliedFilters[0]['value']);
     }
 
-    public function testInvalidFilterThrowsException()
+    public function test_invalid_filter_throws_exception()
     {
         $this->expectException(InvalidFilterQueryException::class);
 
@@ -54,13 +54,13 @@ class FilterServiceTest extends TestCase
         $filterService->applyFilters($query, $filters);
     }
 
-    public function testGetAppliedFilters()
+    public function test_get_applied_filters()
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-              ->with('field', 'like', '%John%')
-              ->once()
-              ->andReturnSelf();
+            ->with('field', 'like', '%John%')
+            ->once()
+            ->andReturnSelf();
 
         $filterService = new FilterService([
             'name' => StringFilter::class,
@@ -80,9 +80,9 @@ class FilterServiceTest extends TestCase
         $this->assertEquals(['operator' => 'like', 'string' => 'John'], $appliedFilters[0]['value']);
     }
 
-    public function testRegisterFilter()
+    public function test_register_filter()
     {
-        $filterService = new FilterService();
+        $filterService = new FilterService;
 
         $filterService->registerFilter('name', StringFilter::class);
 
@@ -92,18 +92,18 @@ class FilterServiceTest extends TestCase
         $this->assertEquals(StringFilter::class, $filters['name']);
     }
 
-    public function testApplyMultipleFilters()
+    public function test_apply_multiple_filters()
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-              ->with('field', 'like', '%John%')
-              ->once()
-              ->andReturnSelf();
+            ->with('field', 'like', '%John%')
+            ->once()
+            ->andReturnSelf();
 
         $query->shouldReceive('where')
-              ->with('field', '>', 25)
-              ->once()
-              ->andReturnSelf();
+            ->with('field', '>', 25)
+            ->once()
+            ->andReturnSelf();
 
         $filterService = new FilterService([
             'name' => StringFilter::class,
