@@ -37,6 +37,8 @@ enum FilterOperatorEnum: string
             self::IN => 'Dentro de',
             self::NOT_IN => 'Fora de',
             self::BETWEEN => 'Entre',
+            self::IS_NULL => 'Nulo',
+            self::IS_NOT_NULL => 'Não é Nulo'
         };
     }
 
