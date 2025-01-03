@@ -13,12 +13,12 @@ class NullFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('whereNull')
-            ->with('field')
+            ->with('is_active')
             ->once()
             ->andReturnSelf();
 
         $filter = new NullFilter;
-        $value = ['operator' => '=', 'boolean' => true];
+        $value = ['field' => 'is_active', 'operator' => 'is null', 'boolean' => true];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -28,12 +28,12 @@ class NullFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('whereNotNull')
-            ->with('field')
+            ->with('is_active')
             ->once()
             ->andReturnSelf();
 
         $filter = new NullFilter;
-        $value = ['operator' => '=', 'boolean' => false];
+        $value = ['field' => 'is_active', 'operator' => 'is not null', 'boolean' => false];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);

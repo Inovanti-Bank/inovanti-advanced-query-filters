@@ -14,22 +14,6 @@ To install the package, you can use Composer:
 composer require inovanti-bank/inovanti-advanced-query-filters
 ```
 
-After installing the package, you need to register the service provider and facade in your config/app.php file:
-
-```php
-'providers' => [
-    // Other Service Providers
-
-    InovantiBank\AdvancedQueryFilters\Providers\FilterServiceProvider::class,
-],
-
-'aliases' => [
-    // Other Facades
-
-    'Filters' => InovantiBank\AdvancedQueryFilters\Facades\Filters::class,
-],
-```
-
 ## Usage
 
 ### Basic Usage
@@ -37,28 +21,221 @@ After installing the package, you need to register the service provider and faca
 You can use the provided filters to apply various types of filters to your Eloquent queries. Here is an example of how to use the `FilterService`:
 
 ```php
-use Filters;
+try {
+    $results = User::query()->get();
 
-// Define the filters
-$filters = [
-    'name' => ['operator' => 'contains', 'string' => 'John'],
-    'age' => ['operator' => 'greater_than', 'number' => 25],
-    'created_at' => ['operator' => 'before', 'date' => '2022-01-01'],
-];
+    return response()->json([
+        'filters' => request()->get('filters', []),
+        'default_sort' => ['field' => 'created_at', 'direction' => 'desc'],
+        'pagination' => ['limit' => 10, 'offset' => 0],
+        'data' => $results,
+    ]);
+    } catch (Exception $e) {
+    return response()->json(['error' => $e->getMessage()], 400);
+}
+```
 
-// Apply the filters to a query
-$query = User::query();
-$results = Filters::applyFilters($query, $filters)->get();
+## Configuring Filters in Models
 
-// Get the applied filters
-$appliedFilters = Filters::getAppliedFilters();
+You can configure the filters directly in your Eloquent models. This way, the filters will always be available whenever a query is executed on the model.
 
-return response()->json([
-    'filters' => $appliedFilters,
-    'default_sort' => ['field' => 'created_at', 'direction' => 'desc'],
-    'pagination' => ['limit' => 10, 'offset' => 0],
-    'data' => $results,
-]);
+### Example
+
+```php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use InovantiBank\AdvancedQueryFilters\Services\FilterService;
+use InovantiBank\AdvancedQueryFilters\Services\Filters\StringFilter;
+use InovantiBank\AdvancedQueryFilters\Services\Filters\NumericFilter;
+use InovantiBank\AdvancedQueryFilters\Services\Filters\DateFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
+use Exception;
+
+class User extends Model
+{
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('filters', function (Builder $query) {
+
+            $filters = request()->get('filters', []);
+
+            if (empty($filters) && request()->isJson()) {
+                $filters = request()->input('filters', []);
+            }
+
+            if (! empty($filters)) {
+                $filterService = new FilterService([
+                    'name' => StringFilter::class,
+                    'age' => NumericFilter::class,
+                    'created_at' => DateFilter::class,
+                ]);
+
+
+                if (request()->has('filters')) {
+
+                    try {
+                        $filterService->applyFilters($query, $filters);
+                    } catch (Exception $e) {
+                        Log::error('Erro ao aplicar filtros: '.$e->getMessage());
+                    }
+                }
+            }
+        });
+    }
+}
+```
+
+## Example JSON for Filters
+
+Here are examples of the JSON structure that the frontend should send in the body of the request to apply the filters correctly:
+
+### Date Filter
+
+```json
+{
+  "filters": [
+    {
+      "field": "created_at",
+      "operator": "between",
+      "from": "2022-01-01",
+      "to": "2022-12-31"
+    },
+    {
+      "field": "created_at",
+      "operator": "<",
+      "date": "2022-01-01"
+    }
+  ]
+}
+```
+
+### Numeric Filter
+
+```json
+{
+  "filters": [
+    {
+      "field": "age",
+      "operator": ">",
+      "number": 25
+    },
+    {
+      "field": "salary",
+      "operator": "between",
+      "from": 30000,
+      "to": 60000
+    }
+  ]
+}
+```
+
+### String Filter
+
+```json
+{
+  "filters": [
+    {
+      "field": "name",
+      "operator": "like",
+      "string": "John"
+    },
+    {
+      "field": "email",
+      "operator": "not like",
+      "string": "@example.com"
+    }
+  ]
+}
+```
+
+### Array Filter
+
+```json
+{
+  "filters": [
+    {
+      "field": "status",
+      "operator": "in",
+      "array": ["active", "pending"]
+    },
+    {
+      "field": "tags",
+      "operator": "not_in",
+      "array": ["spam", "banned"]
+    }
+  ]
+}
+```
+
+### Boolean Filter
+
+```json
+{
+  "filters": [
+    {
+      "field": "is_active",
+      "operator": "=",
+      "boolean": true
+    },
+    {
+      "field": "is_verified",
+      "operator": "!=",
+      "boolean": false
+    }
+  ]
+}
+```
+
+### Null Filter
+
+```json
+{
+  "filters": [
+    {
+      "field": "deleted_at",
+      "operator": "is_null"
+    },
+    {
+      "field": "deleted_at",
+      "operator": "is_not_null"
+    }
+  ]
+}
+```
+
+### Range Filter
+
+```json
+{
+  "filters": [
+    {
+      "field": "price",
+      "operator": "between",
+      "min": 100,
+      "max": 500
+    }
+  ]
+}
+```
+
+### Relation Filter
+
+```json
+{
+  "filters": [
+    {
+      "relation": "orders",
+      "field": "orders_total",
+      "operator": ">",
+      "relatedColumn": "total",
+      "value": 100
+    }
+  ]
+}
 ```
 
 ## Available Filters
@@ -74,35 +251,9 @@ The package supports the following types of filters:
 - **RangeFilter**: Filters based on numeric ranges.
 - **RelationFilter**: Filters based on relationships between models.
 
-## Example Filters
-
-### Date Filter
-
-```php
-$filters = [
-    'created_at' => ['operator' => 'between', 'from' => '2022-01-01', 'to' => '2022-12-31'],
-];
-```
-
-### Numeric Filter
-
-```php
-$filters = [
-    'age' => ['operator' => '>', 'number' => 25],
-];
-```
-
-### String Filter
-
-```php
-$filters = [
-    'name' => ['operator' => 'like', 'string' => 'John'],
-];
-```
-
 ## Getting Filter Operator Translations
 
-You can use the `FilterService` to get the translations of the available filter operators. This is useful for displaying friendly operator names to the end users on the frontend.
+You can use the FilterService to get the translations of the available filter operators. This is useful for displaying friendly operator names to the end users on the frontend.
 
 ### Example
 

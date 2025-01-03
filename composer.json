@@ -13,6 +13,7 @@
     "laravel/framework": "^11.0"
   },
   "require-dev": {
+    "laravel/framework": "^11.0",
     "phpunit/phpunit": "11.5.x-dev",
     "mockery/mockery": "2.0.x-dev",
     "laravel/pint": "^1.19"
@@ -20,8 +21,21 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Inovanti\\AdvancedQueryFilters\\Providers\\FilterServiceProvider"
-      ]
+        "InovantiBank\\AdvancedQueryFilters\\Providers\\FilterServiceProvider"
+      ],
+      "aliases": {
+        "AdvancedQueryFilters": "InovantiBank\\AdvancedQueryFilters\\Facades\\FiltersService"
+      }
     }
-  }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "inovanti Ip",
+      "email": "dev@inovanti.com.br"
+    }
+  ]
 }

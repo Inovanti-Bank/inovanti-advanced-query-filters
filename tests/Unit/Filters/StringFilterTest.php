@@ -13,12 +13,12 @@ class StringFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', '=', 'John')
+            ->with('name', '=', 'John')
             ->once()
             ->andReturnSelf();
 
         $filter = new StringFilter;
-        $value = ['operator' => '=', 'string' => 'John'];
+        $value = ['field' => 'name', 'operator' => '=', 'string' => 'John'];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -28,12 +28,12 @@ class StringFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', 'like', '%John%')
+            ->with('name', 'like', '%John%')
             ->once()
             ->andReturnSelf();
 
         $filter = new StringFilter;
-        $value = ['operator' => 'like', 'string' => 'John'];
+        $value = ['field' => 'name', 'operator' => 'like', 'string' => 'John'];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -43,12 +43,12 @@ class StringFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', 'not like', '%John%')
+            ->with('name', 'not like', '%John%')
             ->once()
             ->andReturnSelf();
 
         $filter = new StringFilter;
-        $value = ['operator' => 'not like', 'string' => 'John'];
+        $value = ['field' => 'name', 'operator' => 'not like', 'string' => 'John'];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);

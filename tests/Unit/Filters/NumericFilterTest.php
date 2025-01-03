@@ -13,12 +13,12 @@ class NumericFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', '=', 10)
+            ->with('age', '=', 10)
             ->once()
             ->andReturnSelf();
 
         $filter = new NumericFilter;
-        $value = ['operator' => '=', 'number' => 10];
+        $value = ['field' => 'age', 'operator' => '=', 'number' => 10];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -28,12 +28,12 @@ class NumericFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', '>', 10)
+            ->with('age', '>', 10)
             ->once()
             ->andReturnSelf();
 
         $filter = new NumericFilter;
-        $value = ['operator' => '>', 'number' => 10];
+        $value = ['field' => 'age', 'operator' => '>', 'number' => 10];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);

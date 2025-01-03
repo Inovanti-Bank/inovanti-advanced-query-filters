@@ -13,12 +13,27 @@ class BooleanFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', true)
+            ->with('is_active', '=', true)
             ->once()
             ->andReturnSelf();
 
         $filter = new BooleanFilter;
-        $value = ['operator' => '=', 'boolean' => true];
+        $value = ['field' => 'is_active', 'operator' => '=', 'boolean' => true];
+        $result = $filter->apply($query, $value);
+
+        $this->assertInstanceOf(Builder::class, $result);
+    }
+
+    public function test_apply_not_equals()
+    {
+        $query = Mockery::mock(Builder::class);
+        $query->shouldReceive('where')
+            ->with('is_active', '<>', true)
+            ->once()
+            ->andReturnSelf();
+
+        $filter = new BooleanFilter;
+        $value = ['field' => 'is_active', 'operator' => '<>', 'boolean' => true];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);

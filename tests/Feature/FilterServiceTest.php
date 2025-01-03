@@ -16,7 +16,7 @@ class FilterServiceTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', 'like', '%John%')
+            ->with('name', 'like', '%John%')
             ->once()
             ->andReturnSelf();
 
@@ -25,7 +25,7 @@ class FilterServiceTest extends TestCase
         ]);
 
         $filters = [
-            'name' => ['operator' => 'like', 'string' => 'John'],
+            'name' => ['field' => 'name', 'operator' => 'like', 'string' => 'John'],
         ];
 
         $filterService->applyFilters($query, $filters);
@@ -34,7 +34,11 @@ class FilterServiceTest extends TestCase
         $this->assertCount(1, $appliedFilters);
         $this->assertEquals('name', $appliedFilters[0]['field']);
         $this->assertEquals('like', $appliedFilters[0]['operator']);
-        $this->assertEquals(['operator' => 'like', 'string' => 'John'], $appliedFilters[0]['value']);
+        $this->assertEquals([
+            'field' => 'name',
+            'operator' => 'like',
+            'string' => 'John',
+        ], $appliedFilters[0]['value']);
     }
 
     public function test_invalid_filter_throws_exception()
@@ -44,11 +48,11 @@ class FilterServiceTest extends TestCase
         $query = Mockery::mock(Builder::class);
 
         $filterService = new FilterService([
-            'name' => \InovantiBank\AdvancedQueryFilters\Services\Filters\StringFilter::class,
+            'name' => StringFilter::class,
         ]);
 
         $filters = [
-            'invalid_field' => ['operator' => '=', 'string' => 'John'],
+            'invalid_field' => ['field' => 'invalid_field', 'operator' => '=', 'string' => 'John'],
         ];
 
         $filterService->applyFilters($query, $filters);
@@ -58,7 +62,7 @@ class FilterServiceTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', 'like', '%John%')
+            ->with('name', 'like', '%John%')
             ->once()
             ->andReturnSelf();
 
@@ -67,7 +71,7 @@ class FilterServiceTest extends TestCase
         ]);
 
         $filters = [
-            'name' => ['operator' => 'like', 'string' => 'John'],
+            'name' => ['field' => 'name', 'operator' => 'like', 'string' => 'John'],
         ];
 
         $filterService->applyFilters($query, $filters);
@@ -77,7 +81,11 @@ class FilterServiceTest extends TestCase
         $this->assertCount(1, $appliedFilters);
         $this->assertEquals('name', $appliedFilters[0]['field']);
         $this->assertEquals('like', $appliedFilters[0]['operator']);
-        $this->assertEquals(['operator' => 'like', 'string' => 'John'], $appliedFilters[0]['value']);
+        $this->assertEquals([
+            'field' => 'name',
+            'operator' => 'like',
+            'string' => 'John',
+        ], $appliedFilters[0]['value']);
     }
 
     public function test_register_filter()
@@ -96,12 +104,12 @@ class FilterServiceTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', 'like', '%John%')
+            ->with('name', 'like', '%John%')
             ->once()
             ->andReturnSelf();
 
         $query->shouldReceive('where')
-            ->with('field', '>', 25)
+            ->with('age', '>', 25)
             ->once()
             ->andReturnSelf();
 
@@ -111,8 +119,8 @@ class FilterServiceTest extends TestCase
         ]);
 
         $filters = [
-            'name' => ['operator' => 'like', 'string' => 'John'],
-            'age' => ['operator' => '>', 'number' => 25],
+            'name' => ['field' => 'name', 'operator' => 'like', 'string' => 'John'],
+            'age' => ['field' => 'age', 'operator' => '>', 'number' => 25],
         ];
 
         $filterService->applyFilters($query, $filters);
@@ -122,10 +130,23 @@ class FilterServiceTest extends TestCase
         $this->assertCount(2, $appliedFilters);
         $this->assertEquals('name', $appliedFilters[0]['field']);
         $this->assertEquals('like', $appliedFilters[0]['operator']);
-        $this->assertEquals(['operator' => 'like', 'string' => 'John'], $appliedFilters[0]['value']);
+        $this->assertEquals([
+            'field' => 'name',
+            'operator' => 'like',
+            'string' => 'John',
+        ], $appliedFilters[0]['value']);
 
         $this->assertEquals('age', $appliedFilters[1]['field']);
         $this->assertEquals('>', $appliedFilters[1]['operator']);
-        $this->assertEquals(['operator' => '>', 'number' => 25], $appliedFilters[1]['value']);
+        $this->assertEquals([
+            'field' => 'age',
+            'operator' => '>',
+            'number' => 25,
+        ], $appliedFilters[1]['value']);
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
     }
 }

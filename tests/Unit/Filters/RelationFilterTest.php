@@ -11,16 +11,18 @@ class RelationFilterTest extends TestCase
 {
     public function test_apply_equal()
     {
+
         $query = Mockery::mock(Builder::class);
 
         $query->shouldReceive('whereHas')
-            ->with('relation', Mockery::on(function ($callback) {
-                $relatedQuery = Mockery::mock(Builder::class);
-                $relatedQuery->shouldReceive('where')
+            ->with('relationName', Mockery::on(function ($closure) {
+                $subQuery = Mockery::mock(Builder::class);
+                $subQuery->shouldReceive('where')
                     ->with('related_field', '=', 'value')
                     ->once()
                     ->andReturnSelf();
-                $callback($relatedQuery);
+
+                $closure($subQuery);
 
                 return true;
             }))
@@ -28,7 +30,14 @@ class RelationFilterTest extends TestCase
             ->andReturnSelf();
 
         $filter = new RelationFilter;
-        $value = ['operator' => '=', 'value' => 'value'];
+        $value = [
+            'relation' => 'relationName',
+            'field' => 'field_name',
+            'operator' => '=',
+            'relatedColumn' => 'related_field',
+            'value' => 'value',
+        ];
+
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);

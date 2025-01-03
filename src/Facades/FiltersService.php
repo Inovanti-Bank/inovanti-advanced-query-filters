@@ -4,7 +4,7 @@ namespace InovantiBank\AdvancedQueryFilters\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Filters extends Facade
+class FiltersService extends Facade
 {
     protected static function getFacadeAccessor()
     {

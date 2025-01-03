@@ -1,6 +1,7 @@
 <?php
 
-use InovantiBank\AdvancedQueryFilters\Enums\SortDirection;
+use InovantiBank\AdvancedQueryFilters\Enums\FilterOperatorEnum;
+use InovantiBank\AdvancedQueryFilters\Enums\SortDirectionEnum;
 
 return [
     'default_filter' => FilterOperatorEnum::EQUAL->value,
@@ -25,9 +26,9 @@ return [
             FilterOperatorEnum::BETWEEN->value,
         ],
     ],
-    'default_sort_direction' => SortDirection::ASCENDING->value,
+    'default_sort_direction' => SortDirectionEnum::ASCENDING->value,
     'supported_sort_directions' => [
-        SortDirection::ASCENDING->value,
-        SortDirection::DESCENDING->value,
+        SortDirectionEnum::ASCENDING->value,
+        SortDirectionEnum::DESCENDING->value,
     ],
 ];

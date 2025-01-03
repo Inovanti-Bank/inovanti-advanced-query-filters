@@ -16,7 +16,9 @@ enum FilterOperatorEnum: string
     case IN = 'in';
     case NOT_IN = 'not in';
     case BETWEEN = 'between';
-
+    case IS_NULL = 'is null';
+    case IS_NOT_NULL = 'is not null';
+   
     /**
      * Retorna o operador traduzido.
      */

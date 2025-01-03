@@ -14,8 +14,13 @@ class FilterServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/advanced-query-filters.php',
+            'advanced-query-filters'
+        );
+
         $this->app->singleton('filterservice', function ($app) {
-            return new FilterService;
+            return new FilterService(config('advanced-query-filters.supported_filters'));
         });
     }
 

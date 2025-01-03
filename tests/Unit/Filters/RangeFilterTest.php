@@ -13,12 +13,12 @@ class RangeFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('whereBetween')
-            ->with('field', [10, 20])
+            ->with('payment', [10, 20])
             ->once()
             ->andReturnSelf();
 
         $filter = new RangeFilter;
-        $value = ['operator' => 'between', 'min' => 10, 'max' => 20];
+        $value = ['field' => 'payment', 'operator' => 'between', 'min' => 10, 'max' => 20];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -28,12 +28,12 @@ class RangeFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', '>=', 10)
+            ->with('payment', '>=', 10)
             ->once()
             ->andReturnSelf();
 
         $filter = new RangeFilter;
-        $value = ['operator' => '>=', 'min' => 10];
+        $value = ['field' => 'payment', 'operator' => '>=', 'min' => 10];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -43,12 +43,12 @@ class RangeFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('where')
-            ->with('field', '<=', 20)
+            ->with('payment', '<=', 20)
             ->once()
             ->andReturnSelf();
 
         $filter = new RangeFilter;
-        $value = ['operator' => '<=', 'max' => 20];
+        $value = ['field' => 'payment', 'operator' => '<=', 'max' => 20];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);

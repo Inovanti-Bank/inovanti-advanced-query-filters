@@ -16,12 +16,12 @@ class DateFilterTest extends TestCase
         $carbonDate = Carbon::parse('2022-01-01');
 
         $query->shouldReceive('whereDate')
-            ->with('field', $carbonDate->toDateString())
+            ->with('created_at', $carbonDate->toDateString())
             ->once()
             ->andReturnSelf();
 
         $filter = new DateFilter;
-        $value = ['operator' => '=', 'date' => '2022-01-01'];
+        $value = ['field' => 'created_at', 'operator' => '=', 'date' => '2022-01-01'];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -33,12 +33,12 @@ class DateFilterTest extends TestCase
         $carbonDate = Carbon::parse('2022-01-01');
 
         $query->shouldReceive('whereDate')
-            ->with('field', '<', $carbonDate->toDateString())
+            ->with('created_at', '<', $carbonDate->toDateString())
             ->once()
             ->andReturnSelf();
 
         $filter = new DateFilter;
-        $value = ['operator' => '<', 'date' => '2022-01-01'];
+        $value = ['field' => 'created_at', 'operator' => '<', 'date' => '2022-01-01'];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -51,12 +51,12 @@ class DateFilterTest extends TestCase
         $carbonDateTo = Carbon::parse('2022-12-31');
 
         $query->shouldReceive('whereBetween')
-            ->with('field', [$carbonDateFrom->toDateString(), $carbonDateTo->toDateString()])
+            ->with('created_at', [$carbonDateFrom->toDateString(), $carbonDateTo->toDateString()])
             ->once()
             ->andReturnSelf();
 
         $filter = new DateFilter;
-        $value = ['operator' => 'between', 'from' => '2022-01-01', 'to' => '2022-12-31'];
+        $value = ['field' => 'created_at', 'operator' => 'between', 'from' => '2022-01-01', 'to' => '2022-12-31'];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);

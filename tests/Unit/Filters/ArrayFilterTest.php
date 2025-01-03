@@ -13,12 +13,12 @@ class ArrayFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('whereIn')
-            ->with('field', [1, 2, 3])
+            ->with('id', [1, 2, 3])
             ->once()
             ->andReturnSelf();
 
         $filter = new ArrayFilter;
-        $value = ['operator' => 'in', 'array' => [1, 2, 3]];
+        $value = ['field' => 'id', 'operator' => 'in', 'array' => [1, 2, 3]];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
@@ -28,12 +28,12 @@ class ArrayFilterTest extends TestCase
     {
         $query = Mockery::mock(Builder::class);
         $query->shouldReceive('whereNotIn')
-            ->with('field', [1, 2, 3])
+            ->with('id', [1, 2, 3])
             ->once()
             ->andReturnSelf();
 
         $filter = new ArrayFilter;
-        $value = ['operator' => 'not in', 'array' => [1, 2, 3]];
+        $value = ['field' => 'id', 'operator' => 'not in', 'array' => [1, 2, 3]];
         $result = $filter->apply($query, $value);
 
         $this->assertInstanceOf(Builder::class, $result);
