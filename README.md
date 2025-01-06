@@ -355,4 +355,4 @@ This package is open-source software licensed under the [MIT license](https://gi
 
 ---
 
-Thank you for using Inovanti Advanced Query Filters! If you have any questions or need further assistance, please don't hesitate to reach out.
+Thank you for using Inovanti Advanced Query Filters! If you have any questions or need further assistance, please don't hesitate to reach out [dev@inovanti.com.br](dev@inovanti.com.br)
