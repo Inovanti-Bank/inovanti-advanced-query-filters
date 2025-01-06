@@ -9,13 +9,11 @@ class FilterServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/advanced-query-filters.php',
+            dirname(__DIR__).'/config/advanced-query-filters.php',
             'advanced-query-filters'
         );
 
@@ -26,10 +24,8 @@ class FilterServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->publishes([
             __DIR__.'/../config/advanced-query-filters.php' => config_path('advanced-query-filters.php'),

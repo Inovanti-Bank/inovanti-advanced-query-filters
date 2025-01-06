@@ -62,6 +62,38 @@ class DateFilterTest extends TestCase
         $this->assertInstanceOf(Builder::class, $result);
     }
 
+    public function test_apply_is_null()
+    {
+        $query = Mockery::mock(Builder::class);
+
+        $query->shouldReceive('whereNull')
+            ->with('created_at')
+            ->once()
+            ->andReturnSelf();
+
+        $filter = new DateFilter;
+        $value = ['field' => 'created_at', 'operator' => 'is null'];
+        $result = $filter->apply($query, $value);
+
+        $this->assertInstanceOf(Builder::class, $result);
+    }
+
+    public function test_apply_is_not_null()
+    {
+        $query = Mockery::mock(Builder::class);
+
+        $query->shouldReceive('whereNotNull')
+            ->with('created_at')
+            ->once()
+            ->andReturnSelf();
+
+        $filter = new DateFilter;
+        $value = ['field' => 'created_at', 'operator' => 'is not null'];
+        $result = $filter->apply($query, $value);
+
+        $this->assertInstanceOf(Builder::class, $result);
+    }
+
     protected function tearDown(): void
     {
         Mockery::close();

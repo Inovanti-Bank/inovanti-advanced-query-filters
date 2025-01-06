@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\Facade;
 
 class FiltersService extends Facade
 {
-    protected static function getFacadeAccessor()
+    /**
+     * Obtem o nome do serviço registrado no contêiner.
+     */
+    protected static function getFacadeAccessor(): string
     {
         return 'filterservice';
     }

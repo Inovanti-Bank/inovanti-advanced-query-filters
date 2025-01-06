@@ -12,6 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class FilterServiceTest extends TestCase
 {
+    /**
+     * Testa se os filtros são aplicados corretamente.
+     */
     public function test_apply_filters()
     {
         $query = Mockery::mock(Builder::class);
@@ -41,9 +44,14 @@ class FilterServiceTest extends TestCase
         ], $appliedFilters[0]['value']);
     }
 
+    /**
+     * Testa se uma exceção é lançada para filtros inválidos.
+     */
     public function test_invalid_filter_throws_exception()
     {
         $this->expectException(InvalidFilterQueryException::class);
+        $this->expectExceptionMessage('Requested filter(s) [invalid_field] are not allowed.');
+
 
         $query = Mockery::mock(Builder::class);
 

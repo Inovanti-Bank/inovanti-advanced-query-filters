@@ -2,7 +2,7 @@
 
 namespace InovantiBank\AdvancedQueryFilters\Exceptions;
 
-use InovantiBank\AdvancedQueryFilters\Enums\SortDirection;
+use InovantiBank\AdvancedQueryFilters\Enums\SortDirectionEnum;
 
 class InvalidDirectionException extends InvalidQueryException
 {
@@ -10,8 +10,8 @@ class InvalidDirectionException extends InvalidQueryException
     {
         $message = sprintf(
             "The direction should be either '%s' or '%s'. '%s' given.",
-            SortDirection::ASCENDING->value,
-            SortDirection::DESCENDING->value,
+            SortDirectionEnum::ASCENDING->value,
+            SortDirectionEnum::DESCENDING->value,
             $direction
         );
 

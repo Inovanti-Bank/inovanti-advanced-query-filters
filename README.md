@@ -68,17 +68,23 @@ class User extends Model
             }
 
             if (! empty($filters)) {
+
+                $formattedFilters = [];
+                foreach ($filters as $filter) {
+                    $formattedFilters[$filter['field']] = $filter;
+                }
+
                 $filterService = new FilterService([
                     'name' => StringFilter::class,
                     'age' => NumericFilter::class,
+                    'status' => ArrayFilter::class,
+                    'email' => StringFilter::class,
                     'created_at' => DateFilter::class,
                 ]);
 
-
                 if (request()->has('filters')) {
-
                     try {
-                        $filterService->applyFilters($query, $filters);
+                        $filterService->applyFilters($query, $formattedFilters);
                     } catch (Exception $e) {
                         Log::error('Erro ao aplicar filtros: '.$e->getMessage());
                     }

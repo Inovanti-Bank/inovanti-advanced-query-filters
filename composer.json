@@ -8,14 +8,18 @@
       "InovantiBank\\AdvancedQueryFilters\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
   "require": {
     "php": "^8.2",
-    "laravel/framework": "^11.0"
+    "laravel/framework": "^11.0|^10.0"
   },
   "require-dev": {
-    "laravel/framework": "^11.0",
-    "phpunit/phpunit": "11.5.x-dev",
-    "mockery/mockery": "2.0.x-dev",
+    "phpunit/phpunit": "^11.5",
+    "mockery/mockery": "^2.0",
     "laravel/pint": "^1.19"
   },
   "extra": {
@@ -29,8 +33,20 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit"
+    "test": "vendor/bin/phpunit",
+    "format": "vendor/bin/pint"
   },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "keywords": [
+    "laravel",
+    "filters",
+    "query",
+    "advanced-filters",
+    "eloquent"
+  ],
   "minimum-stability": "dev",
   "authors": [
     {

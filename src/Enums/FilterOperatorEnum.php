@@ -18,7 +18,7 @@ enum FilterOperatorEnum: string
     case BETWEEN = 'between';
     case IS_NULL = 'is null';
     case IS_NOT_NULL = 'is not null';
-   
+
     /**
      * Retorna o operador traduzido.
      */
@@ -56,5 +56,13 @@ enum FilterOperatorEnum: string
             ],
             $operatorsToTranslate
         );
+    }
+
+    /**
+     * Verifica se um operador é válido.
+     */
+    public static function isValid(string $operator): bool
+    {
+        return in_array($operator, array_column(self::cases(), 'value'), true);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace InovantiBank\AdvancedQueryFilters\Services\Traits;
 
+use InvalidArgumentException;
+
 trait SortableTrait
 {
     /**
-     * Apply sorting to the query based on the sort parameters.
+     * Aplica ordenação ao query builder com base nos parâmetros fornecidos.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  array|string  $sort
@@ -15,7 +17,7 @@ trait SortableTrait
     {
         if (is_array($sort)) {
             foreach ($sort as $field => $direction) {
-                $query->orderBy($field, $direction);
+                $query->orderBy($field, $this->validateSortDirection($direction));
             }
         } elseif (is_string($sort)) {
             $parts = explode(',', $sort);
@@ -30,5 +32,19 @@ trait SortableTrait
         }
 
         return $query;
+    }
+
+    /**
+     * Valida a direção de ordenação.
+     */
+    protected function validateSortDirection(string $direction): string
+    {
+        $validDirections = ['asc', 'desc'];
+
+        if (! in_array(strtolower($direction), $validDirections, true)) {
+            throw new InvalidArgumentException("Invalid sort direction: {$direction}. Allowed values are 'asc' or 'desc'.");
+        }
+
+        return strtolower($direction);
     }
 }
