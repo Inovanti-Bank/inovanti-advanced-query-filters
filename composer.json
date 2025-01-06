@@ -1,0 +1,57 @@
+{
+  "name": "inovanti-bank/inovanti-advanced-query-filters",
+  "description": "Componente de filtros avançados para Laravel",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "InovantiBank\\AdvancedQueryFilters\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^8.2",
+    "laravel/framework": "^11.0|^10.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5",
+    "mockery/mockery": "^2.0",
+    "laravel/pint": "^1.19"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "InovantiBank\\AdvancedQueryFilters\\Providers\\FilterServiceProvider"
+      ],
+      "aliases": {
+        "AdvancedQueryFilters": "InovantiBank\\AdvancedQueryFilters\\Facades\\FiltersService"
+      }
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "format": "vendor/bin/pint"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "keywords": [
+    "laravel",
+    "filters",
+    "query",
+    "advanced-filters",
+    "eloquent"
+  ],
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "inovanti Ip",
+      "email": "dev@inovanti.com.br"
+    }
+  ]
+}
