@@ -80,6 +80,12 @@ class User extends Model
                     'status' => ArrayFilter::class,
                     'email' => StringFilter::class,
                     'created_at' => DateFilter::class,
+                    'is_active' => BooleanFilter::class,
+                    'price' => NumericFilter::class,
+                    'deleted_at' => NullFilter::class,
+                    'range_field' => RangeFilter::class,
+                    'profile.phone' => RelationFilter::class,
+                    'profile.bio' => RelationFilter::class,
                 ]);
 
                 if (request()->has('filters')) {
@@ -234,11 +240,18 @@ Here are examples of the JSON structure that the frontend should send in the bod
 {
   "filters": [
     {
-      "relation": "orders",
-      "field": "orders_total",
-      "operator": ">",
-      "relatedColumn": "total",
-      "value": 100
+      "relation": "profile",
+      "field": "profile.bio",
+      "operator": "=",
+      "relatedColumn": "bio",
+      "value": "Developer"
+    },
+    {
+      "relation": "profile",
+      "field": "profile.phone",
+      "operator": "like",
+      "relatedColumn": "phone",
+      "value": "123%"
     }
   ]
 }
